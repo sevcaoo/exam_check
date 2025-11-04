@@ -211,3 +211,34 @@ class Appeal(BaseModel):
 
     def __str__(self):
         return f"Appeal by {self.student.get_full_name()} for {self.submission.assignment.title}"
+
+
+class Appeal(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE) 
+    reason = models.TextField()
+    status = models.CharField(max_length=50)
+    reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_appeals')
+    review_notes = models.TextField(blank=True, null=True)
+    reviewed_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
+fields = [
+    'id',
+    'student_name',
+    'assignment',  
+    'assignment_title',
+    'reason',
+    'status',
+    'reviewed_by',
+    'reviewed_by_name',
+    'review_notes',
+    'reviewed_at',
+    'created_at',
+    'updated_at',
+]
+
+
